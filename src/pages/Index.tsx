@@ -335,19 +335,19 @@ const Index = () => {
               <Card className="p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-0 shadow-xl">
                 <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Social Media</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <a href="#" className="flex items-center gap-2 p-3 bg-blue-100 dark:bg-blue-900 rounded-lg hover:scale-105 transition-transform">
+                  <a href="https://facebook.com/profile.php?id=100093706797985" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 bg-blue-100 dark:bg-blue-900 rounded-lg hover:scale-105 transition-transform">
                     <Facebook className="h-5 w-5 text-blue-600" />
                     <span className="text-sm text-blue-800 dark:text-blue-200">Facebook</span>
                   </a>
-                  <a href="#" className="flex items-center gap-2 p-3 bg-red-100 dark:bg-red-900 rounded-lg hover:scale-105 transition-transform">
+                  <a href="https://youtube.com/@PHDGD" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 bg-red-100 dark:bg-red-900 rounded-lg hover:scale-105 transition-transform">
                     <Youtube className="h-5 w-5 text-red-600" />
                     <span className="text-sm text-red-800 dark:text-red-200">YouTube</span>
                   </a>
-                  <a href="#" className="flex items-center gap-2 p-3 bg-pink-100 dark:bg-pink-900 rounded-lg hover:scale-105 transition-transform">
+                  <a href="https://instagram.com/gourobsaha2319" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 bg-pink-100 dark:bg-pink-900 rounded-lg hover:scale-105 transition-transform">
                     <Instagram className="h-5 w-5 text-pink-600" />
                     <span className="text-sm text-pink-800 dark:text-pink-200">Instagram</span>
                   </a>
-                  <a href="https://github.com/GOUROB2319" className="flex items-center gap-2 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg hover:scale-105 transition-transform">
+                  <a href="https://github.com/GOUROB2319" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg hover:scale-105 transition-transform">
                     <Github className="h-5 w-5 text-gray-600 dark:text-gray-300" />
                     <span className="text-sm text-gray-800 dark:text-gray-200">GitHub</span>
                   </a>
