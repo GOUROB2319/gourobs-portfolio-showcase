@@ -26,7 +26,7 @@ export const useEmailJS = () => {
 
       await emailjs.send(
         'service_0lg9pdf', // Service ID
-        'template_4p2g4la', // Template ID
+        'template_4p2g4la', // Template ID - This needs to be created in EmailJS dashboard
         templateParams,
         '2s6PsJ8id9go2ibJs' // Public Key
       );
@@ -37,11 +37,20 @@ export const useEmailJS = () => {
       });
 
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('EmailJS Error:', error);
+      
+      let errorMessage = "Please try again or contact me directly via email.";
+      
+      if (error.status === 400 && error.text?.includes('template ID not found')) {
+        errorMessage = "Email service configuration issue. Please contact me directly at gourobsaha2319@gmail.com";
+      } else if (error.status === 401) {
+        errorMessage = "Email service authentication issue. Please contact me directly at gourobsaha2319@gmail.com";
+      }
+      
       toast({
         title: "Failed to send message",
-        description: "Please try again or contact me directly via email.",
+        description: errorMessage,
         variant: "destructive",
       });
       return false;
