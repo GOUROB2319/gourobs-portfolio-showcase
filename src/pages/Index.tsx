@@ -1,15 +1,22 @@
-
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart } from 'lucide-react';
+import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useEmailJS } from '@/hooks/useEmailJS';
+import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const { sendEmail, isLoading } = useEmailJS();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +41,26 @@ const Index = () => {
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      return;
+    }
+
+    const success = await sendEmail(formData);
+    if (success) {
+      setFormData({ name: '', email: '', message: '' });
+    }
   };
 
   const skills = [
@@ -357,12 +384,46 @@ const Index = () => {
             
             <Card className="p-8 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-0 shadow-2xl">
               <h3 className="text-xl font-bold mb-6 text-gray-800 dark:text-white">Send Message</h3>
-              <form className="space-y-4">
-                <Input placeholder="Your Name" className="bg-white/50 dark:bg-gray-700/50" />
-                <Input type="email" placeholder="Your Email" className="bg-white/50 dark:bg-gray-700/50" />
-                <Textarea placeholder="Your Message" rows={4} className="bg-white/50 dark:bg-gray-700/50" />
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                  Send Message
+              <form onSubmit={handleFormSubmit} className="space-y-4">
+                <Input 
+                  name="name"
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  placeholder="Your Name" 
+                  className="bg-white/50 dark:bg-gray-700/50" 
+                  required 
+                />
+                <Input 
+                  name="email"
+                  type="email" 
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  placeholder="Your Email" 
+                  className="bg-white/50 dark:bg-gray-700/50" 
+                  required 
+                />
+                <Textarea 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleFormChange}
+                  placeholder="Your Message" 
+                  rows={4} 
+                  className="bg-white/50 dark:bg-gray-700/50" 
+                  required 
+                />
+                <Button 
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
                 </Button>
               </form>
             </Card>
@@ -384,6 +445,8 @@ const Index = () => {
       >
         <Mail className="h-6 w-6" />
       </Button>
+
+      <Toaster />
     </div>
   );
 };
