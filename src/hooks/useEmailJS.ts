@@ -26,7 +26,7 @@ export const useEmailJS = () => {
 
       await emailjs.send(
         'service_0lg9pdf', // Service ID
-        'template_4p2g4la', // Template ID - This needs to be created in EmailJS dashboard
+        'template_io2i2kw', // Template ID - Updated with new template
         templateParams,
         '2s6PsJ8id9go2ibJs' // Public Key
       );
