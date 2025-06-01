@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2 } from 'lucide-react';
+import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +11,7 @@ import { Toaster } from '@/components/ui/toaster';
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,6 +42,7 @@ const Index = () => {
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -128,6 +130,7 @@ const Index = () => {
               Gourob.
             </div>
             
+            {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
               {['home', 'about', 'skills', 'services', 'portfolio', 'contact'].map((item) => (
                 <button
@@ -142,15 +145,49 @@ const Index = () => {
               ))}
             </div>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2"
-            >
-              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
+            <div className="flex items-center gap-2">
+              {/* Dark mode toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setDarkMode(!darkMode)}
+                className="p-2"
+              >
+                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+
+              {/* Mobile menu button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 md:hidden"
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200/20 dark:border-gray-700/20">
+                {['home', 'about', 'skills', 'services', 'portfolio', 'contact'].map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => scrollToSection(item)}
+                    className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium capitalize transition-colors duration-200 ${
+                      activeSection === item 
+                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-semibold' 
+                        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    }`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
