@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X } from 'lucide-react';
+import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X, Linkedin, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,7 +21,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'services', 'portfolio', 'contact'];
+      const sections = ['home', 'about', 'skills', 'services', 'portfolio', 'videos', 'contact'];
       const scrollPos = window.scrollY + 100;
 
       for (const section of sections) {
@@ -120,6 +120,21 @@ const Index = () => {
     }
   ];
 
+  const videos = [
+    {
+      id: '5Ys-DWXX_G0',
+      title: 'Video 1',
+      thumbnail: `https://img.youtube.com/vi/5Ys-DWXX_G0/maxresdefault.jpg`,
+      url: 'https://youtu.be/5Ys-DWXX_G0?si=WmZCfPIClAEuopv8'
+    },
+    {
+      id: 'QmoftqWmbhw',
+      title: 'Video 2',
+      thumbnail: `https://img.youtube.com/vi/QmoftqWmbhw/maxresdefault.jpg`,
+      url: 'https://youtu.be/QmoftqWmbhw?si=kcaFCymBB6DmVcbj'
+    }
+  ];
+
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
       {/* Navigation */}
@@ -132,7 +147,7 @@ const Index = () => {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
-              {['home', 'about', 'skills', 'services', 'portfolio', 'contact'].map((item) => (
+              {['home', 'about', 'skills', 'services', 'portfolio', 'videos', 'contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -172,7 +187,7 @@ const Index = () => {
           {mobileMenuOpen && (
             <div className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200/20 dark:border-gray-700/20">
-                {['home', 'about', 'skills', 'services', 'portfolio', 'contact'].map((item) => (
+                {['home', 'about', 'skills', 'services', 'portfolio', 'videos', 'contact'].map((item) => (
                   <button
                     key={item}
                     onClick={() => scrollToSection(item)}
@@ -373,8 +388,48 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Videos Section */}
+      <section id="videos" className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Videos
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {videos.map((video, index) => (
+              <Card key={video.id} className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-0 shadow-2xl hover:scale-105 transition-transform duration-300">
+                <div className="relative group cursor-pointer" onClick={() => window.open(video.url, '_blank')}>
+                  <div className="aspect-video overflow-hidden">
+                    <img 
+                      src={video.thumbnail} 
+                      alt={video.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
+                      <Youtube className="h-8 w-8 text-white ml-1" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">{video.title}</h3>
+                  <Button 
+                    onClick={() => window.open(video.url, '_blank')}
+                    className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800"
+                  >
+                    <Youtube className="mr-2 h-4 w-4" />
+                    Watch on YouTube
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4">
+      <section id="contact" className="py-20 px-4 bg-gray-50/50 dark:bg-gray-800/50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Contact Me
@@ -399,6 +454,14 @@ const Index = () => {
               <Card className="p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-0 shadow-xl">
                 <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Social Media</h3>
                 <div className="grid grid-cols-2 gap-4">
+                  <a href="https://www.linkedin.com/in/gourob-saha-9895442a9/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 bg-blue-100 dark:bg-blue-900 rounded-lg hover:scale-105 transition-transform">
+                    <Linkedin className="h-5 w-5 text-blue-600" />
+                    <span className="text-sm text-blue-800 dark:text-blue-200">LinkedIn</span>
+                  </a>
+                  <a href="https://x.com/GourobSaha2319" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 bg-sky-100 dark:bg-sky-900 rounded-lg hover:scale-105 transition-transform">
+                    <Twitter className="h-5 w-5 text-sky-600" />
+                    <span className="text-sm text-sky-800 dark:text-sky-200">Twitter</span>
+                  </a>
                   <a href="https://facebook.com/profile.php?id=100093706797985" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 bg-blue-100 dark:bg-blue-900 rounded-lg hover:scale-105 transition-transform">
                     <Facebook className="h-5 w-5 text-blue-600" />
                     <span className="text-sm text-blue-800 dark:text-blue-200">Facebook</span>
