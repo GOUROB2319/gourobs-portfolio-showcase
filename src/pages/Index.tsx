@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X, Linkedin, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -69,6 +70,8 @@ const Index = () => {
     { name: 'HTML', level: 90, icon: Code },
     { name: 'CSS', level: 85, icon: Palette },
     { name: 'C Programming', level: 75, icon: Code },
+    { name: 'C++', level: 80, icon: Code },
+    { name: 'Python', level: 85, icon: Code },
     { name: 'MS Word', level: 95, icon: FileText },
     { name: 'MS Excel', level: 90, icon: BarChart },
     { name: 'PowerPoint', level: 92, icon: Monitor },
@@ -137,6 +140,14 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-blue-300/10 rounded-full animate-float"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-purple-300/10 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-pink-300/10 rounded-full animate-float" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-green-300/10 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+      </div>
+
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/20 dark:border-gray-700/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -168,7 +179,7 @@ const Index = () => {
                 onClick={() => setDarkMode(!darkMode)}
                 className="p-2"
               >
-                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                {darkMode ? <Sun className="h-5 w-5 text-white" /> : <Moon className="h-5 w-5 text-gray-700" />}
               </Button>
 
               {/* Mobile menu button */}
@@ -178,7 +189,7 @@ const Index = () => {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 md:hidden"
               >
-                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {mobileMenuOpen ? <X className="h-5 w-5 text-white dark:text-white" /> : <Menu className="h-5 w-5 text-gray-700 dark:text-white" />}
               </Button>
             </div>
           </div>
@@ -212,25 +223,25 @@ const Index = () => {
         
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           <div className="mb-8 relative">
-            <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1 animate-pulse">
+            <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1">
               <div className="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-6xl">
                 🚀
               </div>
             </div>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-fade-in">
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
             Hi, I'm
           </h1>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-gray-800 dark:text-white animate-fade-in">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-gray-800 dark:text-white">
             Gourob Saha
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 animate-fade-in">
+          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8">
             Student | Coder | Designer | Dreamer
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               onClick={() => scrollToSection('portfolio')}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg"
@@ -246,10 +257,6 @@ const Index = () => {
             </Button>
           </div>
         </div>
-
-        {/* Floating elements */}
-        <div className="absolute top-20 right-20 w-20 h-20 bg-blue-500/20 rounded-full animate-bounce"></div>
-        <div className="absolute bottom-20 left-20 w-16 h-16 bg-purple-500/20 rounded-full animate-pulse"></div>
       </section>
 
       {/* About Section */}
@@ -397,9 +404,9 @@ const Index = () => {
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {videos.map((video, index) => (
-              <Card key={video.id} className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-0 shadow-2xl hover:scale-105 transition-transform duration-300">
+              <Card key={video.id} className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-2 border-blue-200 dark:border-blue-700 shadow-2xl hover:scale-105 transition-transform duration-300">
                 <div className="relative group cursor-pointer" onClick={() => window.open(video.url, '_blank')}>
-                  <div className="aspect-video overflow-hidden">
+                  <div className="aspect-video overflow-hidden border-2 border-blue-300 dark:border-blue-600 rounded-t-lg">
                     <img 
                       src={video.thumbnail} 
                       alt={video.title}
@@ -416,7 +423,7 @@ const Index = () => {
                   <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">{video.title}</h3>
                   <Button 
                     onClick={() => window.open(video.url, '_blank')}
-                    className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800"
+                    className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
                   >
                     <Youtube className="mr-2 h-4 w-4" />
                     Watch on YouTube
