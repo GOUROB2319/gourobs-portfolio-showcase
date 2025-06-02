@@ -431,7 +431,12 @@ const Index = () => {
                     </div>
                     <div className="flex items-center gap-3">
                       <Phone className="h-5 w-5 text-green-600" />
-                      <span className="text-gray-700 dark:text-gray-300">01516352465</span>
+                      <a 
+                        href="tel:01516352465" 
+                        className="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 cursor-pointer"
+                      >
+                        01516352465
+                      </a>
                     </div>
                   </div>
                 </Card>
