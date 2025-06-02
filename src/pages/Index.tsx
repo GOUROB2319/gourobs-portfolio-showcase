@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useEmailJS } from '@/hooks/useEmailJS';
 import { Toaster } from '@/components/ui/toaster';
+import NeuralNetworkBackground from '@/components/NeuralNetworkBackground';
 
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -166,25 +167,8 @@ const Index = () => {
     url: 'https://youtu.be/yw1r8TecgZQ?si=I41H-08wKDtF4RuI'
   }];
   return <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
-      {/* Fixed Background Elements - Now properly positioned behind content */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-20 left-10 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full animate-float blur-sm"></div>
-        <div className="absolute top-40 right-20 w-20 h-20 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full animate-float blur-sm" style={{
-        animationDelay: '2s'
-      }}></div>
-        <div className="absolute bottom-32 left-1/4 w-16 h-16 bg-gradient-to-br from-pink-500/10 to-red-500/10 rounded-full animate-float blur-sm" style={{
-        animationDelay: '4s'
-      }}></div>
-        <div className="absolute bottom-20 right-1/3 w-22 h-22 bg-gradient-to-br from-green-500/10 to-teal-500/10 rounded-full animate-float blur-sm" style={{
-        animationDelay: '1s'
-      }}></div>
-        <div className="absolute top-1/2 right-10 w-14 h-14 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full animate-float blur-sm" style={{
-        animationDelay: '3s'
-      }}></div>
-        <div className="absolute top-3/4 left-1/6 w-12 h-12 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-full animate-float blur-sm" style={{
-        animationDelay: '5s'
-      }}></div>
-      </div>
+      {/* Neural Network Background Animation */}
+      <NeuralNetworkBackground darkMode={darkMode} />
 
       {/* All content with higher z-index */}
       <div className="relative z-10">
@@ -404,7 +388,7 @@ const Index = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-t-xl">
-                      <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-2xl transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                      <div className="w-20 h-20 bg-gradient-to-r from-sky-400 to-cyan-400 rounded-full flex items-center justify-center shadow-2xl transform scale-0 group-hover:scale-100 transition-transform duration-300">
                         <Youtube className="h-10 w-10 text-white ml-1" />
                       </div>
                     </div>
@@ -413,7 +397,7 @@ const Index = () => {
                     <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">{video.title}</h3>
                     <Button 
                       onClick={() => window.open(video.url, '_blank')} 
-                      className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-medium py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                      className="w-full bg-gradient-to-r from-sky-400 to-cyan-400 hover:from-sky-500 hover:to-cyan-500 text-white font-medium py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                     >
                       <Youtube className="mr-2 h-5 w-5" />
                       Watch on YouTube
