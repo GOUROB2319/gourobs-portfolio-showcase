@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 
 interface Node {
@@ -41,7 +42,7 @@ const NeuralNetworkBackground: React.FC<{ darkMode: boolean }> = ({ darkMode }) 
     const drawNode = (node: Node) => {
       ctx.beginPath();
       ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = darkMode ? 'rgba(59, 130, 246, 0.8)' : 'rgba(59, 130, 246, 0.6)';
+      ctx.fillStyle = darkMode ? 'rgba(59, 130, 246, 0.8)' : 'rgba(99, 102, 241, 0.7)';
       ctx.fill();
     };
 
@@ -52,8 +53,8 @@ const NeuralNetworkBackground: React.FC<{ darkMode: boolean }> = ({ darkMode }) 
       ctx.lineTo(node2.x, node2.y);
       ctx.strokeStyle = darkMode 
         ? `rgba(59, 130, 246, ${opacity * 0.3})` 
-        : `rgba(59, 130, 246, ${opacity * 0.2})`;
-      ctx.lineWidth = 1;
+        : `rgba(99, 102, 241, ${opacity * 0.4})`;
+      ctx.lineWidth = darkMode ? 1 : 1.2;
       ctx.stroke();
     };
 

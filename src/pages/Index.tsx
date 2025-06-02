@@ -22,6 +22,30 @@ const Index = () => {
     sendEmail,
     isLoading
   } = useEmailJS();
+
+  // Auto-detect system theme preference
+  useEffect(() => {
+    const detectSystemTheme = () => {
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setDarkMode(systemPrefersDark);
+    };
+
+    // Set initial theme based on system preference
+    detectSystemTheme();
+
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleThemeChange = (e: MediaQueryListEvent) => {
+      setDarkMode(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleThemeChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleThemeChange);
+    };
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'services', 'portfolio', 'videos', 'contact'];
