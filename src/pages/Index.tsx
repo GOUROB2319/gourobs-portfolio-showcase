@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useEmailJS } from '@/hooks/useEmailJS';
 import { Toaster } from '@/components/ui/toaster';
+
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -158,19 +159,30 @@ const Index = () => {
     title: 'Video 2',
     thumbnail: `https://img.youtube.com/vi/QmoftqWmbhw/maxresdefault.jpg`,
     url: 'https://youtu.be/QmoftqWmbhw?si=kcaFCymBB6DmVcbj'
+  }, {
+    id: 'yw1r8TecgZQ',
+    title: 'Video 3',
+    thumbnail: `https://img.youtube.com/vi/yw1r8TecgZQ/maxresdefault.jpg`,
+    url: 'https://youtu.be/yw1r8TecgZQ?si=I41H-08wKDtF4RuI'
   }];
   return <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
-      {/* Animated Background Elements */}
+      {/* Enhanced Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-blue-300/10 rounded-full animate-float"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-purple-300/10 rounded-full animate-float" style={{
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full animate-float shadow-lg backdrop-blur-sm border border-blue-200/30"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full animate-float shadow-lg backdrop-blur-sm border border-purple-200/30" style={{
         animationDelay: '2s'
       }}></div>
-        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-pink-300/10 rounded-full animate-float" style={{
+        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-gradient-to-br from-pink-400/20 to-red-400/20 rounded-full animate-float shadow-lg backdrop-blur-sm border border-pink-200/30" style={{
         animationDelay: '4s'
       }}></div>
-        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-green-300/10 rounded-full animate-float" style={{
+        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-gradient-to-br from-green-400/20 to-teal-400/20 rounded-full animate-float shadow-lg backdrop-blur-sm border border-green-200/30" style={{
         animationDelay: '1s'
+      }}></div>
+        <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full animate-float shadow-lg backdrop-blur-sm border border-cyan-200/30" style={{
+        animationDelay: '3s'
+      }}></div>
+        <div className="absolute top-3/4 left-1/6 w-12 h-12 bg-gradient-to-br from-yellow-400/20 to-orange-400/20 rounded-full animate-float shadow-lg backdrop-blur-sm border border-yellow-200/30" style={{
+        animationDelay: '5s'
       }}></div>
       </div>
 
@@ -378,7 +390,7 @@ const Index = () => {
             Videos
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {videos.map((video, index) => <Card key={video.id} className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-2 border-blue-200 dark:border-blue-700 shadow-2xl hover:scale-105 transition-transform duration-300">
                 <div className="relative group cursor-pointer" onClick={() => window.open(video.url, '_blank')}>
                   <div className="aspect-video overflow-hidden border-2 border-blue-300 dark:border-blue-600 rounded-t-lg">
@@ -416,7 +428,12 @@ const Index = () => {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Mail className="h-5 w-5 text-blue-600" />
-                    <span className="text-gray-700 dark:text-gray-300">gourobsaha2319@gmail.com</span>
+                    <a 
+                      href="mailto:gourobsaha2319@gmail.com" 
+                      className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 cursor-pointer"
+                    >
+                      gourobsaha2319@gmail.com
+                    </a>
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-green-600" />
@@ -489,4 +506,5 @@ const Index = () => {
       <Toaster />
     </div>;
 };
+
 export default Index;
