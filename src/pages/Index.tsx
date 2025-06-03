@@ -267,7 +267,7 @@ const Index = () => {
               </div>
             </div>
             
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Hi, I'm
             </h1>
             <h2 className="text-4xl md:text-6xl font-bold mb-6 text-gray-800 dark:text-white">
@@ -353,10 +353,10 @@ const Index = () => {
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[2000ms] ease-out" 
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[3000ms] ease-out" 
                       style={{
                         width: skillsInView ? `${skill.level}%` : '0%',
-                        transitionDelay: `${index * 100}ms`
+                        transitionDelay: `${index * 200}ms`
                       }}
                     ></div>
                   </div>
