@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 
 interface Node {
@@ -42,7 +41,7 @@ const NeuralNetworkBackground: React.FC<{ darkMode: boolean }> = ({ darkMode }) 
     const drawNode = (node: Node) => {
       ctx.beginPath();
       ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = darkMode ? 'rgba(59, 130, 246, 0.8)' : 'rgba(99, 102, 241, 0.7)';
+      ctx.fillStyle = darkMode ? 'rgba(59, 130, 246, 0.9)' : 'rgba(99, 102, 241, 0.8)';
       ctx.fill();
     };
 
@@ -52,9 +51,9 @@ const NeuralNetworkBackground: React.FC<{ darkMode: boolean }> = ({ darkMode }) 
       ctx.moveTo(node1.x, node1.y);
       ctx.lineTo(node2.x, node2.y);
       ctx.strokeStyle = darkMode 
-        ? `rgba(59, 130, 246, ${opacity * 0.3})` 
-        : `rgba(99, 102, 241, ${opacity * 0.4})`;
-      ctx.lineWidth = darkMode ? 1 : 1.2;
+        ? `rgba(59, 130, 246, ${opacity * 0.4})` 
+        : `rgba(99, 102, 241, ${opacity * 0.5})`;
+      ctx.lineWidth = darkMode ? 1.2 : 1.4;
       ctx.stroke();
     };
 
@@ -112,9 +111,6 @@ const NeuralNetworkBackground: React.FC<{ darkMode: boolean }> = ({ darkMode }) 
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
     };
   }, [darkMode]);
 

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X, Linkedin, Twitter } from 'lucide-react';
+import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X, Linkedin, Twitter, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useEmailJS } from '@/hooks/useEmailJS';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { Toaster } from '@/components/ui/toaster';
 import NeuralNetworkBackground from '@/components/NeuralNetworkBackground';
 
@@ -22,6 +23,9 @@ const Index = () => {
     sendEmail,
     isLoading
   } = useEmailJS();
+
+  // Intersection observer for skills animation
+  const [skillsRef, skillsInView] = useIntersectionObserver();
 
   // Auto-detect system theme preference
   useEffect(() => {
@@ -67,18 +71,21 @@ const Index = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({
       behavior: 'smooth'
     });
     setMobileMenuOpen(false); // Close mobile menu after navigation
   };
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
@@ -93,6 +100,7 @@ const Index = () => {
       });
     }
   };
+
   const skills = [{
     name: 'HTML',
     level: 90,
@@ -142,6 +150,7 @@ const Index = () => {
     level: 80,
     icon: Video
   }];
+
   const services = [{
     title: 'Graphic Design',
     description: 'Logos, Posters, Banners, Social Media Kits',
@@ -158,6 +167,7 @@ const Index = () => {
     icon: Code,
     color: 'from-green-500 to-teal-500'
   }];
+
   const projects = [{
     title: 'Bengali Voice Typing App',
     description: 'Lightweight speech-to-text application for Bengali language',
@@ -174,6 +184,7 @@ const Index = () => {
     tech: ['Python', 'FFmpeg', 'GUI'],
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop'
   }];
+
   const videos = [{
     id: '5Ys-DWXX_G0',
     title: 'Creative Design Tutorial',
@@ -190,6 +201,7 @@ const Index = () => {
     thumbnail: `https://img.youtube.com/vi/yw1r8TecgZQ/maxresdefault.jpg`,
     url: 'https://youtu.be/yw1r8TecgZQ?si=I41H-08wKDtF4RuI'
   }];
+
   return <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
       {/* Neural Network Background Animation */}
       <NeuralNetworkBackground darkMode={darkMode} />
@@ -241,9 +253,16 @@ const Index = () => {
           
           <div className="relative z-10 text-center max-w-4xl mx-auto px-4 animate-fade-in">
             <div className="mb-8 relative">
-              <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1 hover:scale-105 transition-transform duration-300">
-                <div className="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-6xl">
-                  🚀
+              <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1 hover:scale-105 transition-transform duration-300 relative group">
+                <div className="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-6xl relative overflow-hidden">
+                  <div className="transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" style={{
+                    filter: 'drop-shadow(0 8px 16px rgba(59, 130, 246, 0.3))',
+                    textShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                  }}>
+                    🚀
+                  </div>
+                  {/* 3D effect overlay */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-blue-500/10 group-hover:to-blue-500/20 transition-all duration-300"></div>
                 </div>
               </div>
             </div>
@@ -314,8 +333,8 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Skills Section */}
-        <section id="skills" className="py-20 px-4 bg-gray-50/50 dark:bg-gray-800/50">
+        {/* Skills Section with Animated Progress Bars */}
+        <section id="skills" ref={skillsRef} className="py-20 px-4 bg-gray-50/50 dark:bg-gray-800/50">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Skills
@@ -333,9 +352,13 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style={{
-                  width: `${skill.level}%`
-                }}></div>
+                    <div 
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[2000ms] ease-out" 
+                      style={{
+                        width: skillsInView ? `${skill.level}%` : '0%',
+                        transitionDelay: `${index * 100}ms`
+                      }}
+                    ></div>
                   </div>
                 </Card>)}
             </div>
@@ -521,9 +544,12 @@ const Index = () => {
           </div>
         </footer>
 
-        {/* Floating Contact Button */}
-        <Button onClick={() => scrollToSection('contact')} className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-transform duration-200">
-          <Mail className="h-6 w-6" />
+        {/* Dynamic Floating Button */}
+        <Button 
+          onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-all duration-300"
+        >
+          {activeSection === 'contact' ? <Home className="h-6 w-6" /> : <Mail className="h-6 w-6" />}
         </Button>
       </div>
 
