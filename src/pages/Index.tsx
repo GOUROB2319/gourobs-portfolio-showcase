@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X, Linkedin, Twitter, Home } from 'lucide-react';
+import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X, Linkedin, Twitter, Home, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -548,13 +548,29 @@ const Index = () => {
           </div>
         </footer>
 
-        {/* Dynamic Floating Button */}
-        <Button 
-          onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-all duration-300"
-        >
-          {activeSection === 'contact' ? <Home className="h-6 w-6" /> : <Mail className="h-6 w-6" />}
-        </Button>
+        {/* Combined Chat & Home Floating Button */}
+        <div className="fixed bottom-6 right-6 z-40">
+          <div className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full p-3 shadow-2xl hover:scale-110 transition-all duration-300">
+            <Button 
+              onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
+              className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center"
+            >
+              {activeSection === 'contact' ? <Home className="h-6 w-6 text-white" /> : <Mail className="h-6 w-6 text-white" />}
+            </Button>
+            <div className="w-px h-8 bg-white/30"></div>
+            <Button 
+              onClick={() => {
+                // Toggle Tidio chat widget
+                if (window.tidioChatApi) {
+                  window.tidioChatApi.toggle();
+                }
+              }}
+              className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center"
+            >
+              <MessageCircle className="h-6 w-6 text-white" />
+            </Button>
+          </div>
+        </div>
       </div>
 
       <Toaster />
