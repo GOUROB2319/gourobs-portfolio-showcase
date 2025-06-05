@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,5 +98,40 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Tidio widget positioning - move higher to avoid overlapping content */
+#tidio-chat-iframe {
+  bottom: 100px !important;
+}
+
+/* Alternative selector in case the above doesn't work */
+div[id*="tidio"] {
+  bottom: 100px !important;
+}
+
+/* For Tidio widget container */
+#tidio-chat {
+  bottom: 100px !important;
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+  #tidio-chat-iframe,
+  div[id*="tidio"],
+  #tidio-chat {
+    bottom: 80px !important;
+    right: 10px !important;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  #tidio-chat-iframe,
+  div[id*="tidio"],
+  #tidio-chat {
+    bottom: 60px !important;
+    right: 5px !important;
   }
 }
