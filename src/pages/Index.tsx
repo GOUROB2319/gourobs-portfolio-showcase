@@ -324,8 +324,12 @@ const Index = () => {
               
               <div className="relative">
                 <div className="w-full h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-1 hover:scale-105 transition-transform duration-300">
-                  <div className="w-full h-full bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center text-8xl">
-                    💻
+                  <div className="w-full h-full bg-white dark:bg-gray-800 rounded-2xl overflow-hidden">
+                    <img 
+                      src="/lovable-uploads/d930c304-15b7-4d0b-abbf-9253dedc9902.png" 
+                      alt="Developer coding illustration" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </div>
               </div>
