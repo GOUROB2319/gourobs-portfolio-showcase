@@ -37,12 +37,12 @@
     <script src="//code.tidio.co/ti4ptrba1gccwshbaaqcmjqtmfzpp6gy.js" async></script>
     
     <script>
-      // Wait for Tidio to load and hide the default widget
+      // Initialize Tidio chat and hide default widget
       function initializeTidioChat() {
         if (window.tidioChatApi) {
           // Hide the default Tidio button
           window.tidioChatApi.hide();
-          console.log('Tidio chat initialized and hidden');
+          console.log('Tidio chat initialized and default button hidden');
         } else {
           // Retry after 500ms if Tidio is not ready
           setTimeout(initializeTidioChat, 500);
@@ -60,22 +60,37 @@
       window.openTidioChat = function() {
         if (window.tidioChatApi) {
           try {
-            if (window.tidioChatApi.isOpen && window.tidioChatApi.isOpen()) {
+            // Check if chat is open and toggle accordingly
+            if (window.tidioChatApi.isOpened && window.tidioChatApi.isOpened()) {
               window.tidioChatApi.close();
               console.log('Tidio chat closed');
             } else {
+              // Show and open the chat
+              window.tidioChatApi.show();
               window.tidioChatApi.open();
               console.log('Tidio chat opened');
             }
           } catch (error) {
-            // Fallback: just toggle visibility
-            window.tidioChatApi.toggle();
-            console.log('Tidio chat toggled');
+            console.error('Error with Tidio chat API:', error);
+            // Fallback: try basic toggle
+            try {
+              window.tidioChatApi.show();
+              window.tidioChatApi.toggle();
+              console.log('Tidio chat toggled (fallback)');
+            } catch (fallbackError) {
+              console.error('Fallback toggle also failed:', fallbackError);
+            }
           }
         } else {
-          console.log('Tidio chat API not available yet');
-          // Try to initialize again
+          console.log('Tidio chat API not available yet, trying to initialize...');
           initializeTidioChat();
+          // Try again after a short delay
+          setTimeout(() => {
+            if (window.tidioChatApi) {
+              window.tidioChatApi.show();
+              window.tidioChatApi.open();
+            }
+          }, 1000);
         }
       };
     </script>
