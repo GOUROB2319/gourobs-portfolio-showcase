@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X, Linkedin, Twitter, Home, MessageCircle } from 'lucide-react';
+import { Moon, Sun, Mail, Phone, Github, Facebook, Instagram, Youtube, MapPin, Languages, Heart, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, Menu, X, Linkedin, Twitter, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -27,41 +27,28 @@ const Index = () => {
   // Intersection observer for skills animation
   const [skillsRef, skillsInView] = useIntersectionObserver();
 
-  // Load theme preference from localStorage and set up theme management
+  // Auto-detect system theme preference
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme-preference');
-    
-    if (savedTheme) {
-      // Use saved preference
-      setDarkMode(savedTheme === 'dark');
-    } else {
-      // Auto-detect system theme preference for first time users
+    const detectSystemTheme = () => {
       const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       setDarkMode(systemPrefersDark);
-    }
+    };
 
-    // Listen for system theme changes only if no preference is saved
-    if (!savedTheme) {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleThemeChange = (e: MediaQueryListEvent) => {
-        if (!localStorage.getItem('theme-preference')) {
-          setDarkMode(e.matches);
-        }
-      };
+    // Set initial theme based on system preference
+    detectSystemTheme();
 
-      mediaQuery.addEventListener('change', handleThemeChange);
-      return () => {
-        mediaQuery.removeEventListener('change', handleThemeChange);
-      };
-    }
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleThemeChange = (e: MediaQueryListEvent) => {
+      setDarkMode(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleThemeChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleThemeChange);
+    };
   }, []);
-
-  // Save theme preference when changed
-  const toggleTheme = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    localStorage.setItem('theme-preference', newDarkMode ? 'dark' : 'light');
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,7 +76,7 @@ const Index = () => {
     document.getElementById(sectionId)?.scrollIntoView({
       behavior: 'smooth'
     });
-    setMobileMenuOpen(false);
+    setMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -111,20 +98,6 @@ const Index = () => {
         email: '',
         message: ''
       });
-    }
-  };
-
-  const handleChatToggle = () => {
-    try {
-      if (window.openTidioChat) {
-        window.openTidioChat();
-      } else if (window.tidioChatApi) {
-        window.tidioChatApi.toggle();
-      } else {
-        console.log('Tidio chat not available yet');
-      }
-    } catch (error) {
-      console.error('Error toggling Tidio chat:', error);
     }
   };
 
@@ -252,7 +225,7 @@ const Index = () => {
 
               <div className="flex items-center gap-2">
                 {/* Dark mode toggle */}
-                <Button variant="ghost" size="sm" onClick={toggleTheme} className="p-2">
+                <Button variant="ghost" size="sm" onClick={() => setDarkMode(!darkMode)} className="p-2">
                   {darkMode ? <Sun className="h-5 w-5 text-white" /> : <Moon className="h-5 w-5 text-gray-700" />}
                 </Button>
 
@@ -316,7 +289,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* About Section - Updated Layout */}
+        {/* About Section */}
         <section id="about" className="py-20 px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -324,21 +297,7 @@ const Index = () => {
             </h2>
             
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Image on the left */}
-              <div className="relative order-2 md:order-1">
-                <div className="w-full h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-1 hover:scale-105 transition-transform duration-300">
-                  <div className="w-full h-full bg-white dark:bg-gray-800 rounded-2xl overflow-hidden">
-                    <img 
-                      src="/lovable-uploads/d930c304-15b7-4d0b-abbf-9253dedc9902.png" 
-                      alt="Developer coding illustration" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              </div>
-              
-              {/* Information on the right */}
-              <div className="space-y-6 order-1 md:order-2">
+              <div className="space-y-6">
                 <Card className="p-8 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-0 shadow-2xl hover:scale-105 transition-transform duration-300">
                   <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                     I'm Gourob Saha, a tech enthusiast currently studying in Class 12 (HSC 2025 batch). 
@@ -362,11 +321,23 @@ const Index = () => {
                   </div>
                 </Card>
               </div>
+              
+              <div className="relative">
+                <div className="w-full h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-1 hover:scale-105 transition-transform duration-300">
+                  <div className="w-full h-full bg-white dark:bg-gray-800 rounded-2xl overflow-hidden">
+                    <img 
+                      src="/lovable-uploads/d930c304-15b7-4d0b-abbf-9253dedc9902.png" 
+                      alt="Developer coding illustration" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Skills Section with Synchronized Animation */}
+        {/* Skills Section with Animated Progress Bars */}
         <section id="skills" ref={skillsRef} className="py-20 px-4 bg-gray-50/50 dark:bg-gray-800/50">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -386,10 +357,10 @@ const Index = () => {
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[2000ms] ease-out" 
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[3000ms] ease-out" 
                       style={{
                         width: skillsInView ? `${skill.level}%` : '0%',
-                        transitionDelay: skillsInView ? '500ms' : '0ms'
+                        transitionDelay: `${index * 200}ms`
                       }}
                     ></div>
                   </div>
@@ -577,28 +548,13 @@ const Index = () => {
           </div>
         </footer>
 
-        {/* Combined Chat & Contact Floating Button */}
-        <div className="fixed bottom-6 right-6 z-40">
-          <div className="flex items-center gap-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full p-2 shadow-2xl hover:scale-110 transition-all duration-300">
-            <Button 
-              onClick={handleChatToggle}
-              className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center custom-chat-button"
-              title="Open Chat"
-            >
-              <MessageCircle className="h-6 w-6 text-white" />
-            </Button>
-            
-            <div className="w-px h-8 bg-white/30"></div>
-            
-            <Button 
-              onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
-              className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center"
-              title={activeSection === 'contact' ? 'Go to Home' : 'Go to Contact'}
-            >
-              {activeSection === 'contact' ? <Home className="h-6 w-6 text-white" /> : <Mail className="h-6 w-6 text-white" />}
-            </Button>
-          </div>
-        </div>
+        {/* Dynamic Floating Button */}
+        <Button 
+          onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-all duration-300"
+        >
+          {activeSection === 'contact' ? <Home className="h-6 w-6" /> : <Mail className="h-6 w-6" />}
+        </Button>
       </div>
 
       <Toaster />

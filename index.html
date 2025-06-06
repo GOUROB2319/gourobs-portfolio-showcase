@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +9,7 @@
     <meta name="author" content="Gourob Saha" />
     <meta name="keywords" content="Gourob Saha, portfolio, web developer, graphic designer, video editor, Bangladesh, HSC 2025" />
 
-    <link rel="icon" href="https://i.postimg.cc/SKKW03p5/Untitled-18.png" type="image/png">
+    <link rel="icon" href="https://i.postimg.cc/BvXcCVKN/Untitled-18.png" type="image/png">
     <style>
       /* Make favicon appear round */
       link[rel="icon"] {
@@ -31,100 +32,6 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- Tidio Chat Script -->
-    <script src="//code.tidio.co/ti4ptrba1gccwshbaaqcmjqtmfzpp6gy.js" async></script>
-    
-    <script>
-      // Enhanced Tidio chat initialization and control
-      function initializeTidioChat() {
-        if (window.tidioChatApi) {
-          // Hide all default Tidio elements
-          window.tidioChatApi.hide();
-          
-          // Additional hiding with DOM manipulation
-          setTimeout(() => {
-            const tidioElements = document.querySelectorAll('[id*="tidio"], [class*="tidio"]');
-            tidioElements.forEach(element => {
-              if (!element.id.includes('chat-iframe')) {
-                element.style.display = 'none';
-                element.style.visibility = 'hidden';
-              }
-            });
-          }, 1000);
-          
-          console.log('Tidio chat initialized and default button hidden');
-        } else {
-          // Retry after 500ms if Tidio is not ready
-          setTimeout(initializeTidioChat, 500);
-        }
-      }
-
-      // Start initialization when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeTidioChat);
-      } else {
-        initializeTidioChat();
-      }
-
-      // Enhanced global function to toggle Tidio chat
-      window.openTidioChat = function() {
-        if (window.tidioChatApi) {
-          try {
-            // Check if chat is open and toggle accordingly
-            if (window.tidioChatApi.isOpened && window.tidioChatApi.isOpened()) {
-              window.tidioChatApi.close();
-              console.log('Tidio chat closed');
-            } else {
-              // Show and open the chat
-              window.tidioChatApi.show();
-              window.tidioChatApi.open();
-              console.log('Tidio chat opened');
-              
-              // Ensure proper positioning after opening
-              setTimeout(() => {
-                const chatIframe = document.querySelector('#tidio-chat-iframe');
-                if (chatIframe) {
-                  chatIframe.style.bottom = '20px';
-                  chatIframe.style.right = '20px';
-                  chatIframe.style.zIndex = '9999';
-                }
-              }, 500);
-            }
-          } catch (error) {
-            console.error('Error with Tidio chat API:', error);
-            // Fallback: try basic toggle
-            try {
-              window.tidioChatApi.show();
-              window.tidioChatApi.toggle();
-              console.log('Tidio chat toggled (fallback)');
-            } catch (fallbackError) {
-              console.error('Fallback toggle also failed:', fallbackError);
-            }
-          }
-        } else {
-          console.log('Tidio chat API not available yet, trying to initialize...');
-          initializeTidioChat();
-          // Try again after a short delay
-          setTimeout(() => {
-            if (window.tidioChatApi) {
-              window.tidioChatApi.show();
-              window.tidioChatApi.open();
-            }
-          }, 1000);
-        }
-      };
-
-      // Additional function to continuously hide Tidio default elements
-      setInterval(() => {
-        const tidioButtons = document.querySelectorAll('[id*="tidio-button"], [class*="tidio-button"]');
-        tidioButtons.forEach(button => {
-          if (button && !button.classList.contains('custom-chat-button')) {
-            button.style.display = 'none';
-            button.style.visibility = 'hidden';
-          }
-        });
-      }, 2000);
-    </script>
+    <script src="//code.tidio.co/ti4ptrba1gccwshbaaqcmjqtmfzpp6gy.js"></script>
   </body>
 </html>
