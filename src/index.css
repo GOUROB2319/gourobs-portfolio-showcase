@@ -108,7 +108,7 @@
 
 /* Alternative selector in case the above doesn't work */
 div[id*="tidio"] {
-  bottom: 100px !important;
+  bottom: 0px !important;
 }
 
 /* For Tidio widget container */
