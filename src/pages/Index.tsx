@@ -582,7 +582,7 @@ const Index = () => {
           <div className="flex items-center gap-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full p-2 shadow-2xl hover:scale-110 transition-all duration-300">
             <Button 
               onClick={handleChatToggle}
-              className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center"
+              className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center custom-chat-button"
               title="Open Chat"
             >
               <MessageCircle className="h-6 w-6 text-white" />

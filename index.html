@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,11 +36,23 @@
     <script src="//code.tidio.co/ti4ptrba1gccwshbaaqcmjqtmfzpp6gy.js" async></script>
     
     <script>
-      // Initialize Tidio chat and hide default widget
+      // Enhanced Tidio chat initialization and control
       function initializeTidioChat() {
         if (window.tidioChatApi) {
-          // Hide the default Tidio button
+          // Hide all default Tidio elements
           window.tidioChatApi.hide();
+          
+          // Additional hiding with DOM manipulation
+          setTimeout(() => {
+            const tidioElements = document.querySelectorAll('[id*="tidio"], [class*="tidio"]');
+            tidioElements.forEach(element => {
+              if (!element.id.includes('chat-iframe')) {
+                element.style.display = 'none';
+                element.style.visibility = 'hidden';
+              }
+            });
+          }, 1000);
+          
           console.log('Tidio chat initialized and default button hidden');
         } else {
           // Retry after 500ms if Tidio is not ready
@@ -56,7 +67,7 @@
         initializeTidioChat();
       }
 
-      // Global function to toggle Tidio chat
+      // Enhanced global function to toggle Tidio chat
       window.openTidioChat = function() {
         if (window.tidioChatApi) {
           try {
@@ -69,6 +80,16 @@
               window.tidioChatApi.show();
               window.tidioChatApi.open();
               console.log('Tidio chat opened');
+              
+              // Ensure proper positioning after opening
+              setTimeout(() => {
+                const chatIframe = document.querySelector('#tidio-chat-iframe');
+                if (chatIframe) {
+                  chatIframe.style.bottom = '20px';
+                  chatIframe.style.right = '20px';
+                  chatIframe.style.zIndex = '9999';
+                }
+              }, 500);
             }
           } catch (error) {
             console.error('Error with Tidio chat API:', error);
@@ -93,6 +114,17 @@
           }, 1000);
         }
       };
+
+      // Additional function to continuously hide Tidio default elements
+      setInterval(() => {
+        const tidioButtons = document.querySelectorAll('[id*="tidio-button"], [class*="tidio-button"]');
+        tidioButtons.forEach(button => {
+          if (button && !button.classList.contains('custom-chat-button')) {
+            button.style.display = 'none';
+            button.style.visibility = 'hidden';
+          }
+        });
+      }, 2000);
     </script>
   </body>
 </html>
