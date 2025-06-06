@@ -116,11 +116,15 @@ const Index = () => {
 
   const handleChatToggle = () => {
     try {
-      if (window.tidioChatApi) {
+      if (window.openTidioChat) {
+        window.openTidioChat();
+      } else if (window.tidioChatApi) {
         window.tidioChatApi.toggle();
+      } else {
+        console.log('Tidio chat not available yet');
       }
     } catch (error) {
-      console.log('Tidio chat API not available yet');
+      console.error('Error toggling Tidio chat:', error);
     }
   };
 
@@ -312,7 +316,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* About Section */}
+        {/* About Section - Updated Layout */}
         <section id="about" className="py-20 px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -320,7 +324,21 @@ const Index = () => {
             </h2>
             
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
+              {/* Image on the left */}
+              <div className="relative order-2 md:order-1">
+                <div className="w-full h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-1 hover:scale-105 transition-transform duration-300">
+                  <div className="w-full h-full bg-white dark:bg-gray-800 rounded-2xl overflow-hidden">
+                    <img 
+                      src="/lovable-uploads/d930c304-15b7-4d0b-abbf-9253dedc9902.png" 
+                      alt="Developer coding illustration" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Information on the right */}
+              <div className="space-y-6 order-1 md:order-2">
                 <Card className="p-8 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-0 shadow-2xl hover:scale-105 transition-transform duration-300">
                   <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                     I'm Gourob Saha, a tech enthusiast currently studying in Class 12 (HSC 2025 batch). 
@@ -343,18 +361,6 @@ const Index = () => {
                     </div>
                   </div>
                 </Card>
-              </div>
-              
-              <div className="relative">
-                <div className="w-full h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-1 hover:scale-105 transition-transform duration-300">
-                  <div className="w-full h-full bg-white dark:bg-gray-800 rounded-2xl overflow-hidden">
-                    <img 
-                      src="/lovable-uploads/d930c304-15b7-4d0b-abbf-9253dedc9902.png" 
-                      alt="Developer coding illustration" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -571,7 +577,7 @@ const Index = () => {
           </div>
         </footer>
 
-        {/* Combined Chat & Contact Floating Button - Chat moved to left side */}
+        {/* Combined Chat & Contact Floating Button */}
         <div className="fixed bottom-6 right-6 z-40">
           <div className="flex items-center gap-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full p-2 shadow-2xl hover:scale-110 transition-all duration-300">
             <Button 

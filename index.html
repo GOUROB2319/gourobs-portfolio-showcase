@@ -32,6 +32,52 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
-    <script src="//code.tidio.co/ti4ptrba1gccwshbaaqcmjqtmfzpp6gy.js"></script>
+    
+    <!-- Tidio Chat Script -->
+    <script src="//code.tidio.co/ti4ptrba1gccwshbaaqcmjqtmfzpp6gy.js" async></script>
+    
+    <script>
+      // Wait for Tidio to load and hide the default widget
+      function initializeTidioChat() {
+        if (window.tidioChatApi) {
+          // Hide the default Tidio button
+          window.tidioChatApi.hide();
+          console.log('Tidio chat initialized and hidden');
+        } else {
+          // Retry after 500ms if Tidio is not ready
+          setTimeout(initializeTidioChat, 500);
+        }
+      }
+
+      // Start initialization when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeTidioChat);
+      } else {
+        initializeTidioChat();
+      }
+
+      // Global function to toggle Tidio chat
+      window.openTidioChat = function() {
+        if (window.tidioChatApi) {
+          try {
+            if (window.tidioChatApi.isOpen && window.tidioChatApi.isOpen()) {
+              window.tidioChatApi.close();
+              console.log('Tidio chat closed');
+            } else {
+              window.tidioChatApi.open();
+              console.log('Tidio chat opened');
+            }
+          } catch (error) {
+            // Fallback: just toggle visibility
+            window.tidioChatApi.toggle();
+            console.log('Tidio chat toggled');
+          }
+        } else {
+          console.log('Tidio chat API not available yet');
+          // Try to initialize again
+          initializeTidioChat();
+        }
+      };
+    </script>
   </body>
 </html>

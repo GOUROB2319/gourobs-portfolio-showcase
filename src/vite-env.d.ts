@@ -9,7 +9,9 @@ declare global {
       hide: () => void;
       open: () => void;
       close: () => void;
+      isOpen?: () => boolean;
     };
+    openTidioChat?: () => void;
   }
 }
 
