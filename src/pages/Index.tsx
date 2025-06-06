@@ -27,28 +27,41 @@ const Index = () => {
   // Intersection observer for skills animation
   const [skillsRef, skillsInView] = useIntersectionObserver();
 
-  // Auto-detect system theme preference
+  // Load theme preference from localStorage and set up theme management
   useEffect(() => {
-    const detectSystemTheme = () => {
+    const savedTheme = localStorage.getItem('theme-preference');
+    
+    if (savedTheme) {
+      // Use saved preference
+      setDarkMode(savedTheme === 'dark');
+    } else {
+      // Auto-detect system theme preference for first time users
       const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       setDarkMode(systemPrefersDark);
-    };
+    }
 
-    // Set initial theme based on system preference
-    detectSystemTheme();
+    // Listen for system theme changes only if no preference is saved
+    if (!savedTheme) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleThemeChange = (e: MediaQueryListEvent) => {
+        if (!localStorage.getItem('theme-preference')) {
+          setDarkMode(e.matches);
+        }
+      };
 
-    // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleThemeChange = (e: MediaQueryListEvent) => {
-      setDarkMode(e.matches);
-    };
-
-    mediaQuery.addEventListener('change', handleThemeChange);
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleThemeChange);
-    };
+      mediaQuery.addEventListener('change', handleThemeChange);
+      return () => {
+        mediaQuery.removeEventListener('change', handleThemeChange);
+      };
+    }
   }, []);
+
+  // Save theme preference when changed
+  const toggleTheme = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    localStorage.setItem('theme-preference', newDarkMode ? 'dark' : 'light');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,7 +89,7 @@ const Index = () => {
     document.getElementById(sectionId)?.scrollIntoView({
       behavior: 'smooth'
     });
-    setMobileMenuOpen(false); // Close mobile menu after navigation
+    setMobileMenuOpen(false);
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -98,6 +111,16 @@ const Index = () => {
         email: '',
         message: ''
       });
+    }
+  };
+
+  const handleChatToggle = () => {
+    try {
+      if (window.tidioChatApi) {
+        window.tidioChatApi.toggle();
+      }
+    } catch (error) {
+      console.log('Tidio chat API not available yet');
     }
   };
 
@@ -225,7 +248,7 @@ const Index = () => {
 
               <div className="flex items-center gap-2">
                 {/* Dark mode toggle */}
-                <Button variant="ghost" size="sm" onClick={() => setDarkMode(!darkMode)} className="p-2">
+                <Button variant="ghost" size="sm" onClick={toggleTheme} className="p-2">
                   {darkMode ? <Sun className="h-5 w-5 text-white" /> : <Moon className="h-5 w-5 text-gray-700" />}
                 </Button>
 
@@ -337,7 +360,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Skills Section with Animated Progress Bars */}
+        {/* Skills Section with Synchronized Animation */}
         <section id="skills" ref={skillsRef} className="py-20 px-4 bg-gray-50/50 dark:bg-gray-800/50">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -357,10 +380,10 @@ const Index = () => {
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[3000ms] ease-out" 
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[2000ms] ease-out" 
                       style={{
                         width: skillsInView ? `${skill.level}%` : '0%',
-                        transitionDelay: `${index * 200}ms`
+                        transitionDelay: skillsInView ? '500ms' : '0ms'
                       }}
                     ></div>
                   </div>
@@ -548,26 +571,25 @@ const Index = () => {
           </div>
         </footer>
 
-        {/* Combined Chat & Home Floating Button */}
+        {/* Combined Chat & Contact Floating Button - Chat moved to left side */}
         <div className="fixed bottom-6 right-6 z-40">
-          <div className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full p-3 shadow-2xl hover:scale-110 transition-all duration-300">
+          <div className="flex items-center gap-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full p-2 shadow-2xl hover:scale-110 transition-all duration-300">
+            <Button 
+              onClick={handleChatToggle}
+              className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center"
+              title="Open Chat"
+            >
+              <MessageCircle className="h-6 w-6 text-white" />
+            </Button>
+            
+            <div className="w-px h-8 bg-white/30"></div>
+            
             <Button 
               onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
               className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center"
+              title={activeSection === 'contact' ? 'Go to Home' : 'Go to Contact'}
             >
               {activeSection === 'contact' ? <Home className="h-6 w-6 text-white" /> : <Mail className="h-6 w-6 text-white" />}
-            </Button>
-            <div className="w-px h-8 bg-white/30"></div>
-            <Button 
-              onClick={() => {
-                // Toggle Tidio chat widget
-                if (window.tidioChatApi) {
-                  window.tidioChatApi.toggle();
-                }
-              }}
-              className="w-12 h-12 rounded-full bg-transparent hover:bg-white/20 shadow-none border-0 p-0 flex items-center justify-center"
-            >
-              <MessageCircle className="h-6 w-6 text-white" />
             </Button>
           </div>
         </div>
