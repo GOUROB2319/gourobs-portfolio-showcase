@@ -9,7 +9,6 @@ import { useEmailJS } from '@/hooks/useEmailJS';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { Toaster } from '@/components/ui/toaster';
 import NeuralNetworkBackground from '@/components/NeuralNetworkBackground';
-
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -42,14 +41,11 @@ const Index = () => {
     const handleThemeChange = (e: MediaQueryListEvent) => {
       setDarkMode(e.matches);
     };
-
     mediaQuery.addEventListener('change', handleThemeChange);
-
     return () => {
       mediaQuery.removeEventListener('change', handleThemeChange);
     };
   }, []);
-
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'services', 'portfolio', 'videos', 'contact'];
@@ -71,21 +67,18 @@ const Index = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({
       behavior: 'smooth'
     });
     setMobileMenuOpen(false); // Close mobile menu after navigation
   };
-
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
-
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
@@ -100,7 +93,6 @@ const Index = () => {
       });
     }
   };
-
   const skills = [{
     name: 'HTML',
     level: 90,
@@ -150,7 +142,6 @@ const Index = () => {
     level: 80,
     icon: Video
   }];
-
   const services = [{
     title: 'Graphic Design',
     description: 'Logos, Posters, Banners, Social Media Kits',
@@ -167,7 +158,6 @@ const Index = () => {
     icon: Code,
     color: 'from-green-500 to-teal-500'
   }];
-
   const projects = [{
     title: 'Bengali Voice Typing App',
     description: 'Lightweight speech-to-text application for Bengali language',
@@ -184,7 +174,6 @@ const Index = () => {
     tech: ['Python', 'FFmpeg', 'GUI'],
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop'
   }];
-
   const videos = [{
     id: '5Ys-DWXX_G0',
     title: 'Creative Design Tutorial',
@@ -201,7 +190,6 @@ const Index = () => {
     thumbnail: `https://img.youtube.com/vi/yw1r8TecgZQ/maxresdefault.jpg`,
     url: 'https://youtu.be/yw1r8TecgZQ?si=I41H-08wKDtF4RuI'
   }];
-
   return <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
       {/* Neural Network Background Animation */}
       <NeuralNetworkBackground darkMode={darkMode} />
@@ -256,9 +244,9 @@ const Index = () => {
               <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1 hover:scale-105 transition-transform duration-300 relative group">
                 <div className="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-6xl relative overflow-hidden">
                   <div className="transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" style={{
-                    filter: 'drop-shadow(0 8px 16px rgba(59, 130, 246, 0.3))',
-                    textShadow: '0 4px 8px rgba(0,0,0,0.1)'
-                  }}>
+                  filter: 'drop-shadow(0 8px 16px rgba(59, 130, 246, 0.3))',
+                  textShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                }}>
                     🚀
                   </div>
                   {/* 3D effect overlay */}
@@ -325,11 +313,7 @@ const Index = () => {
               <div className="relative">
                 <div className="w-full h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-1 hover:scale-105 transition-transform duration-300">
                   <div className="w-full h-full bg-white dark:bg-gray-800 rounded-2xl overflow-hidden">
-                    <img 
-                      src="/lovable-uploads/d930c304-15b7-4d0b-abbf-9253dedc9902.png" 
-                      alt="Developer coding illustration" 
-                      className="w-full h-full object-cover"
-                    />
+                    <img src="/lovable-uploads/d930c304-15b7-4d0b-abbf-9253dedc9902.png" alt="Developer coding illustration" className="w-full h-full object-cover" />
                   </div>
                 </div>
               </div>
@@ -356,13 +340,10 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div 
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[3000ms] ease-out" 
-                      style={{
-                        width: skillsInView ? `${skill.level}%` : '0%',
-                        transitionDelay: `${index * 200}ms`
-                      }}
-                    ></div>
+                    <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-[3000ms] ease-out" style={{
+                  width: skillsInView ? `${skill.level}%` : '0%',
+                  transitionDelay: `${index * 200}ms`
+                }}></div>
                   </div>
                 </Card>)}
             </div>
@@ -431,11 +412,7 @@ const Index = () => {
               {videos.map((video, index) => <Card key={video.id} className="group overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-2 border-gradient-to-r from-blue-300 to-purple-300 dark:border-blue-600 shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 rounded-xl">
                   <div className="relative cursor-pointer" onClick={() => window.open(video.url, '_blank')}>
                     <div className="aspect-video overflow-hidden rounded-t-xl border-b-2 border-blue-200 dark:border-blue-700">
-                      <img 
-                        src={video.thumbnail} 
-                        alt={video.title} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                      />
+                      <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-t-xl">
@@ -446,10 +423,7 @@ const Index = () => {
                   </div>
                   <div className="p-6 bg-gradient-to-b from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-800/70">
                     <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">{video.title}</h3>
-                    <Button 
-                      onClick={() => window.open(video.url, '_blank')} 
-                      className="w-full bg-gradient-to-r from-sky-400 to-cyan-400 hover:from-sky-500 hover:to-cyan-500 text-white font-medium py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                    >
+                    <Button onClick={() => window.open(video.url, '_blank')} className="w-full bg-gradient-to-r from-sky-400 to-cyan-400 hover:from-sky-500 hover:to-cyan-500 text-white font-medium py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                       <Youtube className="mr-2 h-5 w-5" />
                       Watch on YouTube
                     </Button>
@@ -473,19 +447,13 @@ const Index = () => {
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <Mail className="h-5 w-5 text-blue-600" />
-                      <a 
-                        href="mailto:gourobsaha2319@gmail.com" 
-                        className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 cursor-pointer"
-                      >
+                      <a href="mailto:gourobsaha2319@gmail.com" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 cursor-pointer">
                         gourobsaha2319@gmail.com
                       </a>
                     </div>
                     <div className="flex items-center gap-3">
                       <Phone className="h-5 w-5 text-green-600" />
-                      <a 
-                        href="tel:01516352465" 
-                        className="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 cursor-pointer"
-                      >
+                      <a href="tel:01516352465" className="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 cursor-pointer">
                         01516352465
                       </a>
                     </div>
@@ -549,10 +517,7 @@ const Index = () => {
         </footer>
 
         {/* Dynamic Floating Button */}
-        <Button 
-          onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-all duration-300"
-        >
+        <Button onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-all duration-300 my-[27px] mx-[54px]">
           {activeSection === 'contact' ? <Home className="h-6 w-6" /> : <Mail className="h-6 w-6" />}
         </Button>
       </div>
@@ -560,5 +525,4 @@ const Index = () => {
       <Toaster />
     </div>;
 };
-
 export default Index;
