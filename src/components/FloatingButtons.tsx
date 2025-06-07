@@ -1,6 +1,5 @@
 
-import { Mail, MessageCircle, Home } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Mail, MessageCircle } from 'lucide-react';
 
 interface FloatingButtonsProps {
   activeSection: string;
@@ -14,32 +13,34 @@ const FloatingButtons = ({ activeSection, scrollToSection }: FloatingButtonsProp
     }
   };
 
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:gourobsaha2319@gmail.com';
+  };
+
   return (
-    <div className="fixed bottom-6 right-6 flex items-center gap-3 z-40">
-      {/* Chat Button */}
-      <Button
-        onClick={handleChatClick}
-        className="w-14 h-14 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-2xl hover:scale-110 transition-all duration-300 p-0"
-        title="চ্যাট করুন"
-      >
-        <MessageCircle className="h-6 w-6 text-white" />
-      </Button>
+    <div className="fixed bottom-5 right-5 z-50">
+      <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full px-4 py-3 flex items-center gap-3 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/20">
+        {/* Email Icon */}
+        <button
+          onClick={handleEmailClick}
+          className="flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-200 hover:scale-110 group"
+          title="ইমেইল পাঠান"
+        >
+          <Mail className="h-5 w-5 text-white group-hover:text-blue-100" />
+        </button>
 
-      {/* Divider */}
-      <div className="w-0.5 h-8 bg-gray-300 dark:bg-gray-600"></div>
+        {/* Divider */}
+        <div className="w-px h-6 bg-white/30"></div>
 
-      {/* Main Action Button */}
-      <Button
-        onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')}
-        className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl hover:scale-110 transition-all duration-300 p-0"
-        title={activeSection === 'contact' ? 'হোমে যান' : 'যোগাযোগ করুন'}
-      >
-        {activeSection === 'contact' ? (
-          <Home className="h-6 w-6 text-white" />
-        ) : (
-          <Mail className="h-6 w-6 text-white" />
-        )}
-      </Button>
+        {/* Chat Icon */}
+        <button
+          onClick={handleChatClick}
+          className="flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-200 hover:scale-110 group"
+          title="লাইভ চ্যাট"
+        >
+          <MessageCircle className="h-5 w-5 text-white group-hover:text-green-100" />
+        </button>
+      </div>
     </div>
   );
 };
