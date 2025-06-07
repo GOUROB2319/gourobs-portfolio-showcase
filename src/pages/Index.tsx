@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from 'react';
-import { Mail, Phone, Github, Facebook, Instagram, Youtube, Linkedin, Twitter, Home, Code, Palette, Video, Monitor, FileText, BarChart, Loader2 } from 'lucide-react';
+import { Mail, Phone, Github, Facebook, Instagram, Youtube, Linkedin, Twitter, Home, Code, Palette, Video, Monitor, FileText, BarChart, Loader2, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -364,13 +365,28 @@ const Index = () => {
           </div>
         </footer>
 
-        {/* Dynamic Floating Button */}
-        <Button 
-          onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-all duration-300 my-[27px] mx-[54px]"
-        >
-          {activeSection === 'contact' ? <Home className="h-6 w-6" /> : <Mail className="h-6 w-6" />}
-        </Button>
+        {/* Combined Floating Action Button */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <div className="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full px-4 py-3 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+            <Button
+              onClick={() => scrollToSection('home')}
+              className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm border-0 p-0 transition-all duration-200"
+              title="Go to Home"
+            >
+              <Home className="h-5 w-5 text-white" />
+            </Button>
+            
+            <div className="w-px h-8 bg-white/30"></div>
+            
+            <Button
+              onClick={() => scrollToSection('contact')}
+              className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm border-0 p-0 transition-all duration-200"
+              title="Contact Me"
+            >
+              <MessageCircle className="h-5 w-5 text-white" />
+            </Button>
+          </div>
+        </div>
       </div>
 
       <Toaster />
