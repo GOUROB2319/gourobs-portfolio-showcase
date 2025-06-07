@@ -33,26 +33,5 @@
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
     <script src="//code.tidio.co/ti4ptrba1gccwshbaaqcmjqtmfzpp6gy.js"></script>
-
-    <!-- কাস্টম চ্যাট বাটন স্ক্রিপ্ট -->
-    <script>
-      function openTidioChat() {
-        if (window.tidioChatApi) {
-          const isOpen = window.tidioChatApi.isOpened();
-          isOpen ? window.tidioChatApi.close() : window.tidioChatApi.open();
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        function hideTidioUntilClicked() {
-          if (window.tidioChatApi) {
-            window.tidioChatApi.hide();
-          } else {
-            setTimeout(hideTidioUntilClicked, 500);
-          }
-        }
-        hideTidioUntilClicked();
-      });
-    </script>
   </body>
 </html>
