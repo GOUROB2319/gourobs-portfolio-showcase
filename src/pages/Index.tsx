@@ -301,8 +301,8 @@ const Index = () => {
                     </div>
                     <div className="flex items-center gap-3">
                       <Phone className="h-5 w-5 text-green-600" />
-                      <a href="tel:01516352465" className="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 cursor-pointer">
-                        01516352465
+                      <a href="tel:+8801516352465" className="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 cursor-pointer">
+                        +8801516352465
                       </a>
                     </div>
                   </div>
