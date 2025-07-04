@@ -367,7 +367,7 @@ const Index = () => {
         {/* Dynamic Floating Button */}
         <Button 
           onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-all duration-300"
+          className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-50 hover:scale-110 transition-all duration-300"
         >
           {activeSection === 'contact' ? <Home className="h-6 w-6" /> : <Mail className="h-6 w-6" />}
         </Button>
