@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useEmailJS } from '@/hooks/useEmailJS';
 import { useTheme } from '@/hooks/useTheme';
 import { Toaster } from '@/components/ui/toaster';
-import NeuralNetworkBackground from '@/components/NeuralNetworkBackground';
+import MouseInteractiveBackground from '@/components/MouseInteractiveBackground';
 import Navigation from '@/components/Navigation';
 import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
@@ -137,8 +137,8 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
-      {/* Neural Network Background Animation */}
-      <NeuralNetworkBackground darkMode={darkMode} />
+      {/* Mouse Interactive Background Animation */}
+      <MouseInteractiveBackground darkMode={darkMode} />
 
       {/* All content with higher z-index */}
       <div className="relative z-10">
