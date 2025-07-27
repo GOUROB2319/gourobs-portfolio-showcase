@@ -12,12 +12,10 @@ import NeuralNetworkBackground from '@/components/NeuralNetworkBackground';
 import Navigation from '@/components/Navigation';
 import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
-import LoadingAnimation from '@/components/LoadingAnimation';
 
 const Index = () => {
   const { darkMode, toggleTheme } = useTheme();
   const [activeSection, setActiveSection] = useState('home');
-  const [isPageLoading, setIsPageLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -139,8 +137,6 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
-      {/* Loading Animation */}
-      <LoadingAnimation isVisible={isPageLoading} onComplete={() => setIsPageLoading(false)} />
       {/* Neural Network Background Animation */}
       <NeuralNetworkBackground darkMode={darkMode} />
 
