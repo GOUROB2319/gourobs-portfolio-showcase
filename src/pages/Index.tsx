@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useEmailJS } from '@/hooks/useEmailJS';
 import { useTheme } from '@/hooks/useTheme';
 import { Toaster } from '@/components/ui/toaster';
-import MouseInteractiveBackground from '@/components/MouseInteractiveBackground';
+import NeuralNetworkBackground from '@/components/NeuralNetworkBackground';
 import Navigation from '@/components/Navigation';
 import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
@@ -137,8 +137,8 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
-      {/* Mouse Interactive Background Animation */}
-      <MouseInteractiveBackground darkMode={darkMode} />
+      {/* Neural Network Background Animation */}
+      <NeuralNetworkBackground darkMode={darkMode} />
 
       {/* All content with higher z-index */}
       <div className="relative z-10">
@@ -367,7 +367,7 @@ const Index = () => {
         {/* Dynamic Floating Button */}
         <Button 
           onClick={() => scrollToSection(activeSection === 'contact' ? 'home' : 'contact')} 
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-40 hover:scale-110 transition-all duration-300"
+          className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl z-50 hover:scale-110 transition-all duration-300"
         >
           {activeSection === 'contact' ? <Home className="h-6 w-6" /> : <Mail className="h-6 w-6" />}
         </Button>
